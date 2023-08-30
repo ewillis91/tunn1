@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from './components/SplashScreen';
-import HomeScreen from './components/HomeScreen'; // Import your other screens
+import SignUpScreen from './components/SignUp';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +16,11 @@ const App: React.FC = () => {
           options={{ headerShown: false }} // Hide header for the splash screen
         />
         {/* Add other screens here */}
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUpScreen}
+          options={{ headerShown: false }} // Hide header for the splash screen
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
