@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     top: -100,
-    width: 300,
+    width: 250,
     height: 60,
   },
 });
