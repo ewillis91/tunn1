@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
+    color: 'white'
   },
   logo: {
     top: -200,
