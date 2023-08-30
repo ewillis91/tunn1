@@ -4,7 +4,7 @@
     "slug": "tunn1",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/tunnl.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
