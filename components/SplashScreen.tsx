@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const SplashScreen: React.FC = () => {
+  const navigation = useNavigation();
+
   useEffect(() => {
     // Simulate a delay for the splash screen (e.g., 2 seconds)
     const splashTimeout = setTimeout(() => {
-      // Navigate to the next screen or perform any other action
+      // Navigate to the home screen
+      navigation.navigate('Home');
       // For demonstration purposes, let's just log a message
       console.log('Splash screen timeout complete');
     }, 2000);
@@ -13,7 +17,7 @@ const SplashScreen: React.FC = () => {
     return () => {
       clearTimeout(splashTimeout);
     };
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
