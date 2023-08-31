@@ -3,6 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from './components/SplashScreen';
 import SignUpScreen from './components/SignUp';
+import { Amplify } from 'aws-amplify';
+import awsExports from './src/aws-exports';
+import { Auth } from 'aws-amplify';
+
+Amplify.configure(awsExports);
 
 const Stack = createStackNavigator();
 
