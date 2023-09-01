@@ -33,7 +33,7 @@ const SignUpScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.subtitle}>Tune in</Text>
-      <Text style={styles.subtitle}>Let's get you tuned in to great music around you. Create an account to get discovering and sharing.</Text>
+      <Text style={styles.text}>Let's get you tuned in to great music around you. Create an account to get discovering and sharing.</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       <TextInput
         placeholder="Email"
@@ -48,7 +48,10 @@ const SignUpScreen: React.FC = () => {
         onChangeText={setPassword}
         style={styles.input}
       />
-      <Button title="Sign Up" onPress={handleSignUp} />
+      <Button  
+      title="Sign Up" 
+      color="#f194ff"
+      onPress={handleSignUp} />
     </View>
   );
 };
@@ -58,6 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 20,
+    paddingBottom: 10,
     backgroundColor: 'black'
   },
   input: {
@@ -70,12 +74,20 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   logo: {
-    top: -200,
+    top: -240,
     width: 126,
     height: 59,
     left: 100
   },
   subtitle: {
+    fontSize: 20,
+    fontWeight: '500',
+    marginBottom: 20,
+    color: 'white',
+    textAlign: 'center',
+    fontFamily: 'Source Sans Pro',
+  },
+  text: {
     fontSize: 14,
     marginBottom: 20,
     color: 'white',
