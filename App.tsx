@@ -5,7 +5,7 @@ import SplashScreen from './components/SplashScreen';
 import SignUpScreen from './components/SignUp';
 import { Amplify } from 'aws-amplify';
 import awsExports from './src/aws-exports';
-import { Auth } from 'aws-amplify';
+
 
 Amplify.configure(awsExports);
 

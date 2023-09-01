@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Image, Text } from 'react-native';
+import React, { isValidElement, useState } from 'react';
+import { View, TextInput, Button, StyleSheet, Image, Text, Alert } from 'react-native';
 import { Auth } from 'aws-amplify';
+import EmailValidation from './EmailValidation';
 
 type SignUpParameters = {
   username: string;
@@ -8,9 +9,16 @@ type SignUpParameters = {
   email: string;
 };
 
+interface EmailValidationProps {
+  email: string;
+  onEmailChange: (email: string) => void;
+  isEmailValid: boolean;
+}
+
 const SignUpScreen: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail,] = useState('');
+  const [password, setPassword,] = useState('');
+  const [isEmailValid, setIsValidEmail] = useState(true); 
 
   const handleSignUp = async () => {
     try {
@@ -26,8 +34,19 @@ const SignUpScreen: React.FC = () => {
     } catch (error) {
       console.log('Error signing up:', error);
     }
+    if (!email || !password) {
+      Alert.alert('Validation Error', 'Please enter both email and password.');
+      return;
+    }
   };
 
+  const validateEmail = (text: string) => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const isValid = emailPattern.test(text);
+    setEmail(text);
+    setIsValidEmail(isValid);
+  };
+   
   console.log('Sign up:', email, password);
 
   return (
@@ -35,10 +54,18 @@ const SignUpScreen: React.FC = () => {
       <Text style={styles.subtitle}>Tune in</Text>
       <Text style={styles.text}>Let's get you tuned in to great music around you. Create an account to get discovering and sharing.</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
+      <EmailValidation 
+        email={email} 
+        onEmailChange={validateEmail} 
+        setIsEmailValid={setIsValidEmail} 
+      />
+        {(!isEmailValid && email) && (
+        <Text style={styles.errorText}>Please enter a valid email address</Text>
+      )}
       <TextInput
         placeholder="Email"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={validateEmail}
         style={styles.input}
       />
       <TextInput
@@ -93,7 +120,11 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
-  }
-});
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    right: -10
+}});
 
 export default SignUpScreen;
