@@ -1,4 +1,4 @@
-import React, { isValidElement, useState } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Image, Text, Alert } from 'react-native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from './EmailValidation';
@@ -60,7 +60,7 @@ const SignUpScreen: React.FC = () => {
         setIsEmailValid={setIsValidEmail} 
       />
         {(!isEmailValid && email) && (
-        <Text style={styles.errorText}>Please enter a valid email address</Text>
+        <Text style={styles.errorText}>Invalid email address</Text>
       )}
       <TextInput
         placeholder="Email"
