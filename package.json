@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "test": "jest"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.3.0",
@@ -22,16 +23,21 @@
     "expo": "~49.0.8",
     "expo-font": "~11.4.0",
     "expo-status-bar": "~1.6.0",
-    "jest": "^29.6.4",
     "lint-staged": "^14.0.1",
     "react": "18.2.0",
     "react-hook-form": "^7.45.4",
     "react-native": "0.72.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
+    "@babel/core": "^7.22.15",
+    "@babel/preset-env": "^7.22.15",
+    "@babel/preset-typescript": "^7.22.15",
+    "@types/jest": "^29.5.4",
     "@types/react": "~18.2.14",
     "husky": "^8.0.3",
+    "jest": "^29.6.4",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
   "lint-staged": {
