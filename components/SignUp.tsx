@@ -76,9 +76,11 @@ const SignUpScreen: React.FC = () => {
         style={styles.input}
       />
       <Button  
-      title="Sign Up" 
-      color="#f194ff"
-      onPress={handleSignUp} />
+        title="Sign Up" 
+        color="#f194ff"
+        onPress={handleSignUp} />
+      <View style={styles.horizontalLine} />
+      <Text style={styles.text}>Already have an account? <Text style={styles.boldText}>Log in</Text></Text>
     </View>
   );
 };
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 20,
-    paddingBottom: 10,
+    paddingBottom: 5,
     backgroundColor: 'black'
   },
   input: {
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   logo: {
-    top: -240,
+    top: -190,
     width: 126,
     height: 59,
     left: 100
@@ -116,7 +118,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    marginBottom: 20,
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
@@ -125,6 +126,15 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 12,
     right: -10
-}});
+  },
+  horizontalLine: {
+    height: 1,
+    width: '100%',
+    backgroundColor: 'white',
+    marginVertical: 30,
+  },
+  boldText: {
+    fontWeight: 'bold',
+  }});
 
 export default SignUpScreen;
