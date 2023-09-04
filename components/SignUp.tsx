@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Image, Text, Alert } from 'react-native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from './EmailValidation';
+import PasswordValidation from './PasswordValidation';
 
 type SignUpParameters = {
   username: string;
@@ -19,6 +20,7 @@ const SignUpScreen: React.FC = () => {
   const [email, setEmail,] = useState('');
   const [password, setPassword,] = useState('');
   const [isEmailValid, setIsValidEmail] = useState(true); 
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const handleSignUp = async () => {
     try {
@@ -46,8 +48,14 @@ const SignUpScreen: React.FC = () => {
     setEmail(text);
     setIsValidEmail(isValid);
   };
-   
+
+  const handlePasswordChange = (password: string, isValid: boolean) => {
+    setPassword(password);
+    setIsPasswordValid(isValid);
+  };
+
   console.log('Sign up:', email, password);
+  console.log(isPasswordValid)
 
   return (
     <View style={styles.container}>
@@ -74,6 +82,9 @@ const SignUpScreen: React.FC = () => {
         value={password}
         onChangeText={setPassword}
         style={styles.input}
+      />
+      <PasswordValidation
+        onPasswordChange={handlePasswordChange}
       />
       <Button  
         title="Sign Up" 
