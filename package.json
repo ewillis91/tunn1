@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
+    "tsc": "tsc",
     "test": "jest"
   },
   "dependencies": {
