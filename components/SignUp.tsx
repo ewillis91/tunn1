@@ -4,6 +4,7 @@ import { Auth } from 'aws-amplify';
 import EmailValidation from './EmailValidation';
 import PasswordValidation from './PasswordValidation';
 import { useNavigation } from '@react-navigation/native';
+import LoginScreen from './LoginScreen';
 
 type SignUpParameters = {
   username: string;
@@ -23,6 +24,8 @@ const SignUpScreen: React.FC = () => {
   const [isEmailValid, setIsValidEmail] = useState(true); 
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
+  const navigation = useNavigation();
+
   const handleSignUp = async () => {
     try {
       await Auth.signUp({
@@ -30,12 +33,10 @@ const SignUpScreen: React.FC = () => {
         password: password,
         attributes: {
           email: email,
-        },
-        autoSignIn: {
-          enabled: true,
         }
       });
       console.log('Sign up successful');
+       // @ts-ignore
       // You can navigate to a new screen after successful signup if needed.
     } catch (error) {
       console.log('Error signing up:', error);
@@ -58,13 +59,10 @@ const SignUpScreen: React.FC = () => {
     setIsPasswordValid(isValid);
   };
 
-  const navigation = useNavigation();
-
-  const handleLoginPress = () => {
-
+  const handleLogin = () => {
     // @ts-ignore
     navigation.navigate('Login');
-  };
+  }
 
   console.log('Sign up:', email, password);
   console.log(isPasswordValid)
@@ -82,11 +80,17 @@ const SignUpScreen: React.FC = () => {
         {(!isEmailValid && email) && (
         <Text style={styles.errorText}>Invalid email address</Text>
       )}
-      <Text style={styles.label}>Email address</Text>
       <TextInput
         placeholder="Email"
         value={email}
         onChangeText={validateEmail}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Password"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
         style={styles.input}
       />
       <PasswordValidation
@@ -97,8 +101,8 @@ const SignUpScreen: React.FC = () => {
         color="#f194ff"
         onPress={handleSignUp} />
       <View style={styles.horizontalLine} />
-      <TouchableOpacity onPress={handleLoginPress}>
-      <Text style={styles.text}>Already have an account?<Text style={styles.boldText}> Log in</Text></Text>
+      <TouchableOpacity onPress={handleLogin}>
+      <Text style={styles.text}>Already have an account? <Text style={styles.boldText}>Log in</Text></Text>
       </TouchableOpacity>
     </View>
   );
@@ -140,14 +144,6 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
-  },
-  label: {
-    color: 'rgba(235, 235, 245, 0.6)',
-    fontSize: 15,
-    fontWeight: '400',
-    lineHeight: 20,
-    width: 100,
-    textAlign: 'center',
   },
   errorText: {
     color: 'red',

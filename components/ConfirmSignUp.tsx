@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 
 type ConfirmSignUpParameters = {
@@ -9,9 +9,10 @@ type ConfirmSignUpParameters = {
   };
 
 const ConfirmSignUp: React.FC = () => {
-  const [email, setEmail] = useState('');
   const [code, setCode] = useState(''); // Added code state  const navigation = useNavigation();
-  
+  const navigation = useNavigation();
+  const route = useRoute();
+  const email = (route.params as { email: string })?.email;
     const confirmSignUp = async () => {
     try {
       await Auth.confirmSignUp(email, code);
@@ -25,11 +26,11 @@ const ConfirmSignUp: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.subtitle}>Confirmation code</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
-      <Text>Login</Text>
+      <Text>Verify your email </Text>
       <TextInput
         placeholder="Email"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={setCode}
         style={styles.input}
       />
       <TextInput

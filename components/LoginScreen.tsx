@@ -15,6 +15,7 @@ const LoginScreen: React.FC = () => {
         username: email,
         password: password,
         });
+      console.log('Sign in successful with ' + email);
     } catch (error) {
       console.log('error signing in', error);
     }
