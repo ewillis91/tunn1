@@ -3,3 +3,5 @@
 
 npm run lint-staged
 npm run tsc
+npm run test
+```

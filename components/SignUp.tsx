@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Image, Text, Alert } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Image, Text, Alert, TouchableOpacity } from 'react-native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from './EmailValidation';
 import PasswordValidation from './PasswordValidation';
+import { useNavigation } from '@react-navigation/native';
 
 type SignUpParameters = {
   username: string;
@@ -29,6 +30,9 @@ const SignUpScreen: React.FC = () => {
         password: password,
         attributes: {
           email: email,
+        },
+        autoSignIn: {
+          enabled: true,
         }
       });
       console.log('Sign up successful');
@@ -54,6 +58,14 @@ const SignUpScreen: React.FC = () => {
     setIsPasswordValid(isValid);
   };
 
+  const navigation = useNavigation();
+
+  const handleLoginPress = () => {
+
+    // @ts-ignore
+    navigation.navigate('Login');
+  };
+
   console.log('Sign up:', email, password);
   console.log(isPasswordValid)
 
@@ -70,17 +82,11 @@ const SignUpScreen: React.FC = () => {
         {(!isEmailValid && email) && (
         <Text style={styles.errorText}>Invalid email address</Text>
       )}
+      <Text style={styles.label}>Email address</Text>
       <TextInput
         placeholder="Email"
         value={email}
         onChangeText={validateEmail}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
         style={styles.input}
       />
       <PasswordValidation
@@ -91,7 +97,9 @@ const SignUpScreen: React.FC = () => {
         color="#f194ff"
         onPress={handleSignUp} />
       <View style={styles.horizontalLine} />
-      <Text style={styles.text}>Already have an account? <Text style={styles.boldText}>Log in</Text></Text>
+      <TouchableOpacity onPress={handleLoginPress}>
+      <Text style={styles.text}>Already have an account?<Text style={styles.boldText}> Log in</Text></Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -132,6 +140,14 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
+  },
+  label: {
+    color: 'rgba(235, 235, 245, 0.6)',
+    fontSize: 15,
+    fontWeight: '400',
+    lineHeight: 20,
+    width: 100,
+    textAlign: 'center',
   },
   errorText: {
     color: 'red',
