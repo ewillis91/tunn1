@@ -6,6 +6,7 @@ import SignUpScreen from './components/SignUp';
 import { Amplify } from 'aws-amplify';
 import awsExports from './src/aws-exports';
 import LoginScreen from './components/LoginScreen';
+import WelcomeScreen from './components/WelcomeScreen';
 
 Amplify.configure(awsExports);
 
@@ -27,8 +28,13 @@ const App: React.FC = () => {
           options={{ headerShown: false }} // Hide header for the splash screen
         />
         <Stack.Screen
-          name="Login" // Define a name for your Login screen
+          name="Login"
           component={LoginScreen} // Use the component for the Login screen
+          options={{ headerShown: false }} // Hide header for the Login screen
+        />
+        <Stack.Screen
+          name="Welcome" 
+          component={WelcomeScreen} // Use the component for the Login screen
           options={{ headerShown: false }} // Hide header for the Login screen
         />
       </Stack.Navigator>

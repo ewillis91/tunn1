@@ -33,11 +33,15 @@ const SignUpScreen: React.FC = () => {
         password: password,
         attributes: {
           email: email,
-        }
+        },
+        autoSignIn: {
+          // optional - enables auto sign in after user is confirmed
+          enabled: true,
+        },
       });
       console.log('Sign up successful');
        // @ts-ignore
-      // You can navigate to a new screen after successful signup if needed.
+      navigation.navigate('Welcome');
     } catch (error) {
       console.log('Error signing up:', error);
     }

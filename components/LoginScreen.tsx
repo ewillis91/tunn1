@@ -16,6 +16,8 @@ const LoginScreen: React.FC = () => {
         password: password,
         });
       console.log('Sign in successful with ' + email);
+      // @ts-ignore
+      navigation.navigate('Welcome');
     } catch (error) {
       console.log('error signing in', error);
     }
