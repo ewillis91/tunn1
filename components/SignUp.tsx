@@ -68,7 +68,6 @@ const SignUpScreen: React.FC = () => {
   }
 
   console.log('Sign up:', email, password);
-  console.log(isPasswordValid)
 
   return (
     <View style={styles.container}>

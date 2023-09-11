@@ -9,6 +9,7 @@ const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsValidEmail] = useState(true); 
   const [password, setPassword] = useState('');
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
   const navigation = useNavigation();
 
   const handleSignIn = async () => {
@@ -31,6 +32,11 @@ const LoginScreen: React.FC = () => {
     setEmail(text);
     setIsValidEmail(isValid);
   };
+
+  const handlePasswordChange = (password: string, isValid: boolean) => {
+    setPassword(password);
+    setIsPasswordValid(isValid);
+  };
   
   return (
     <View style={styles.container}>
@@ -45,12 +51,11 @@ const LoginScreen: React.FC = () => {
         onEmailChange={validateEmail} 
         setIsEmailValid={setIsValidEmail} 
       />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
+      {!isPasswordValid && (
+        <Text style={styles.errorText}>Password must be at least 8 characters long.</Text>
+      )}
+      <PasswordValidation
+        onPasswordChange={handlePasswordChange}
       />
       <Button 
       title="Login" 
