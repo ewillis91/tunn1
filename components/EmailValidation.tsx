@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput, Text, StyleSheet } from 'react-native';
 
 interface EmailValidationProps {
   email: string;
@@ -23,12 +23,24 @@ const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, 
         placeholder="Enter your email"
         onChangeText={handleEmailChange}
         value={email}
+        style={styles.input}
       />
       {!setIsEmailValid && (
         <Text style={{ color: 'red' }}>Please enter a valid email address</Text>
       )}
     </View>
-  );
-};
+  )};
+
+ const styles = StyleSheet.create({
+  input: {
+    top: -50,
+    marginBottom: 10,
+    padding: 10,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    color: 'white'
+  },
+ })
 
 export default EmailValidation;

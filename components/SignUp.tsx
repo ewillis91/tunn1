@@ -75,19 +75,13 @@ const SignUpScreen: React.FC = () => {
       <Text style={styles.subtitle}>Tune in</Text>
       <Text style={styles.text}>Let's get you tuned in to great music around you. Create an account to get discovering and sharing.</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
+      {(!isEmailValid && email) && (
+        <Text style={styles.errorText}>Invalid email address</Text>
+      )}
       <EmailValidation 
         email={email} 
         onEmailChange={validateEmail} 
         setIsEmailValid={setIsValidEmail} 
-      />
-        {(!isEmailValid && email) && (
-        <Text style={styles.errorText}>Invalid email address</Text>
-      )}
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={validateEmail}
-        style={styles.input}
       />
       {!isPasswordValid && (
         <Text style={styles.errorText}>Password must be at least 8 characters long.</Text>
@@ -103,7 +97,7 @@ const SignUpScreen: React.FC = () => {
       <TouchableOpacity onPress={handleLogin}>
       <Text style={styles.text}>Already have an account? <Text style={styles.boldText}>Log in</Text></Text>
       </TouchableOpacity>
-</View>
+  </View>
   );
 };
 
