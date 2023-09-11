@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Image, Text, Alert, TouchableOpacity } from 'react-native';
+import { View, Button, StyleSheet, Image, Text, Alert, TouchableOpacity } from 'react-native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from './EmailValidation';
 import PasswordValidation from './PasswordValidation';

@@ -1,11 +1,13 @@
-// LoginScreen.tsx
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
+import EmailValidation from './EmailValidation';
+import PasswordValidation from './PasswordValidation';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [isEmailValid, setIsValidEmail] = useState(true); 
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
@@ -22,17 +24,26 @@ const LoginScreen: React.FC = () => {
       console.log('error signing in', error);
     }
   }
+
+  const validateEmail = (text: string) => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const isValid = emailPattern.test(text);
+    setEmail(text);
+    setIsValidEmail(isValid);
+  };
   
   return (
     <View style={styles.container}>
       <Text style={styles.subtitle}>Log in to get discovering and sharing</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       <Text>Login</Text>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
+      {(!isEmailValid && email) && (
+        <Text style={styles.errorText}>Invalid email address</Text>
+      )}
+      <EmailValidation 
+        email={email} 
+        onEmailChange={validateEmail} 
+        setIsEmailValid={setIsValidEmail} 
       />
       <TextInput
         placeholder="Password"
@@ -85,6 +96,11 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    right: -10
   },
 });
 
