@@ -34,7 +34,7 @@ const PasswordValidation: React.FC<PasswordValidationProps> = ({
 
 const styles = StyleSheet.create({
   input: {
-    top: -50,
+    top: -18,
     marginBottom: 10,
     padding: 10,
     borderColor: 'gray',

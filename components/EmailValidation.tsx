@@ -24,6 +24,7 @@ const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, 
         onChangeText={handleEmailChange}
         value={email}
         style={styles.input}
+        
       />
       {!setIsEmailValid && (
         <Text style={{ color: 'red' }}>Please enter a valid email address</Text>
@@ -33,7 +34,7 @@ const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, 
 
  const styles = StyleSheet.create({
   input: {
-    top: -50,
+    top: -30,
     marginBottom: 10,
     padding: 10,
     borderColor: 'gray',
