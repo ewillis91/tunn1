@@ -20,6 +20,7 @@ interface EmailValidationProps {
 const SignUpScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsValidEmail] = useState(true); 
+  const [isEmailAvailable, setIsEmailAvailable] = useState(true);
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(true)
   const navigation = useNavigation();
@@ -40,12 +41,12 @@ const SignUpScreen: React.FC = () => {
       console.log('Sign up successful');
        // @ts-ignore
       navigation.navigate('Welcome');
-    } catch (error) {
-      console.log('Error signing up:', error);
-    }
-    if (!email || !password) {
-      Alert.alert('Validation Error', 'Please enter both email and password.');
-      return;
+    } catch (error: any) {
+      if (error.message === 'An account with the given email already exists.') {
+        Alert.alert('Email is already registered');
+      } else {
+        console.log(error);
+      }
     }
   };
 
