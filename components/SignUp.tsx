@@ -4,7 +4,6 @@ import { Auth } from 'aws-amplify';
 import EmailValidation from './EmailValidation';
 import PasswordValidation from './PasswordValidation';
 import { useNavigation } from '@react-navigation/native';
-import LoginScreen from './LoginScreen';
 
 type SignUpParameters = {
   username: string;
@@ -19,11 +18,10 @@ interface EmailValidationProps {
 }
 
 const SignUpScreen: React.FC = () => {
-  const [email, setEmail,] = useState('');
-  const [password, setPassword,] = useState('');
+  const [email, setEmail] = useState('');
   const [isEmailValid, setIsValidEmail] = useState(true); 
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-
+  const [password, setPassword] = useState('');
+  const [isPasswordValid, setIsPasswordValid] = useState(true)
   const navigation = useNavigation();
 
   const handleSignUp = async () => {
@@ -90,13 +88,9 @@ const SignUpScreen: React.FC = () => {
         onChangeText={validateEmail}
         style={styles.input}
       />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-        style={styles.input}
-      />
+      {!isPasswordValid && (
+        <Text style={styles.errorText}>Password must be at least 8 characters long.</Text>
+      )}
       <PasswordValidation
         onPasswordChange={handlePasswordChange}
       />
@@ -108,7 +102,7 @@ const SignUpScreen: React.FC = () => {
       <TouchableOpacity onPress={handleLogin}>
       <Text style={styles.text}>Already have an account? <Text style={styles.boldText}>Log in</Text></Text>
       </TouchableOpacity>
-    </View>
+</View>
   );
 };
 

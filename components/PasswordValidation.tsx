@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, Text } from 'react-native';
+import { TextInput, Text, StyleSheet } from 'react-native';
 
 interface PasswordValidationProps {
   onPasswordChange: (password: string, isValid: boolean) => void;
@@ -14,7 +14,6 @@ const PasswordValidation: React.FC<PasswordValidationProps> = ({
   const validatePassword = (text: string) => {
     const isValidPassword = text.length >= 8; // Example: Minimum length of 8 characters
     setPassword(text);
-    setIsValid(isValidPassword);
     onPasswordChange(text, isValidPassword); // Notify the parent component of the password and its validity
   };
 
@@ -22,15 +21,27 @@ const PasswordValidation: React.FC<PasswordValidationProps> = ({
     <React.Fragment>
       <TextInput
         placeholder="Password"
-        secureTextEntry
         value={password}
+        secureTextEntry
         onChangeText={validatePassword}
+        style={styles.input}
       />
       {!isValid && (
         <Text style={{ color: 'red' }}>Password must be at least 8 characters long.</Text>
       )}
     </React.Fragment>
-  );
-};
+)};
+
+const styles = StyleSheet.create({
+  input: {
+    top: -50,
+    marginBottom: 10,
+    padding: 10,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    color: 'white'
+  },
+})
 
 export default PasswordValidation;
