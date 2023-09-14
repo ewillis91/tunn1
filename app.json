@@ -2,6 +2,7 @@
   "expo": {
     "name": "tunn1",
     "slug": "tunn1",
+    "scheme": "exp://192.168.55.56:8081",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/tunnl.png",

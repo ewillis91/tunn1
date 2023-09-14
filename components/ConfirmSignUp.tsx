@@ -18,7 +18,7 @@ const ConfirmSignUp: React.FC = () => {
       await Auth.confirmSignUp(email, code);
       console.log('Sign up successful');
       // @ts-ignore
-      navigation.navigate('WelcomeScreen');
+      navigation.navigate('SpotifyLogin');
     } catch (error: any) {
       console.log('Error signing up:', error);
       if (error.code === 'CodeMismatchException') {
