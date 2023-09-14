@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 
@@ -19,9 +19,14 @@ const ConfirmSignUp: React.FC = () => {
       console.log('Sign up successful');
       // @ts-ignore
       navigation.navigate('WelcomeScreen');
-    } catch (error) {
+    } catch (error: any) {
       console.log('Error signing up:', error);
-    };
+      if (error.code === 'CodeMismatchException') {
+        Alert.alert('Invalid verification code provided, please try again.');
+      } else {
+        console.log(error);
+      }
+    }
 };
 
   return (
