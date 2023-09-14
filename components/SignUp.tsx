@@ -33,6 +33,8 @@ const SignUpScreen: React.FC = () => {
     } catch (error: any) {
       if (error.code === 'UsernameExistsException') {
         Alert.alert('Email is already registered');
+      } else if (!email || !password) {
+        Alert.alert('Validation Error', 'Please enter both email and password.');
       } else {
         console.log(error);
       }
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Source Sans Pro',
   },
   text: {
-    fontSize: 14,
+    fontSize: 15,
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
