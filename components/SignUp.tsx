@@ -25,9 +25,11 @@ const SignUpScreen: React.FC = () => {
           enabled: true,
         },
       });
+      
       console.log('Sign up successful');
        // @ts-ignore
-      navigation.navigate('ConfirmSignUp');
+     // Pass the email as a simple string without JSON.stringify
+    navigation.navigate('ConfirmSignUp', { email });;
     } catch (error: any) {
       if (error.code === 'UsernameExistsException') {
         Alert.alert('Email is already registered');

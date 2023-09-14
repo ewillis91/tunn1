@@ -3,20 +3,22 @@ import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 
-type ConfirmSignUpParameters = {
-    username: string;
-    code: string;
-  };
+type RouteParams = {
+  email: string;
+};
 
 const ConfirmSignUp: React.FC = () => {
   const [code, setCode] = useState('');
   const navigation = useNavigation();
   const route = useRoute();
-  const email = (route.params as { email: string })?.email;
+  const { email }: RouteParams = (route.params || {}) as RouteParams; // Provide a default value and cast
+  
     const confirmSignUp = async () => {
     try {
       await Auth.confirmSignUp(email, code);
       console.log('Sign up successful');
+      // @ts-ignore
+      navigation.navigate('SpotifyAuth');
     } catch (error) {
       console.log('Error signing up:', error);
     };
