@@ -5,22 +5,9 @@ import EmailValidation from './EmailValidation';
 import PasswordValidation from './PasswordValidation';
 import { useNavigation } from '@react-navigation/native';
 
-type SignUpParameters = {
-  username: string;
-  password: string;
-  email: string;
-};
-
-interface EmailValidationProps {
-  email: string;
-  onEmailChange: (email: string) => void;
-  isEmailValid: boolean;
-}
-
 const SignUpScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsValidEmail] = useState(true); 
-  const [isEmailAvailable, setIsEmailAvailable] = useState(true);
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(true)
   const navigation = useNavigation();
@@ -40,9 +27,9 @@ const SignUpScreen: React.FC = () => {
       });
       console.log('Sign up successful');
        // @ts-ignore
-      navigation.navigate('Welcome');
+      navigation.navigate('ConfirmSignUp');
     } catch (error: any) {
-      if (error.message === 'An account with the given email already exists.') {
+      if (error.code === 'UsernameExistsException') {
         Alert.alert('Email is already registered');
       } else {
         console.log(error);
@@ -75,7 +62,7 @@ const SignUpScreen: React.FC = () => {
       <Text style={styles.text}>Let's get you tuned in to great music around you. Create an account to get discovering and sharing.</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       {(!isEmailValid && email) && (
-        <Text style={styles.errorText}>Invalid email address</Text>
+        <Text style={styles.errorTextEmail}>Invalid email address</Text>
       )}
       <EmailValidation 
         email={email} 
@@ -83,7 +70,7 @@ const SignUpScreen: React.FC = () => {
         setIsEmailValid={setIsValidEmail} 
       />
       {!isPasswordValid && (
-        <Text style={styles.errorText}>Password must be at least 8 characters long.</Text>
+        <Text style={styles.errorTextPassword}>Password must be at least 8 characters long.</Text>
       )}
       <PasswordValidation
         onPasswordChange={handlePasswordChange}
@@ -137,10 +124,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
   },
-  errorText: {
+  errorTextEmail: {
     color: 'red',
     fontSize: 12,
-    right: -10
+    right: -10,
+    top: 20
+  }, errorTextPassword: {
+    color: 'red',
+    fontSize: 12,
+    right: -10,
+    top: 30
   },
   horizontalLine: {
     height: 1,

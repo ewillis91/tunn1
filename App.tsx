@@ -7,6 +7,8 @@ import { Amplify } from 'aws-amplify';
 import awsExports from './src/aws-exports';
 import LoginScreen from './components/LoginScreen';
 import WelcomeScreen from './components/WelcomeScreen';
+import SpotifyAuth from './components/SpotifyAuth';
+import ConfirmSignUp from './components/ConfirmSignUp';
 
 Amplify.configure(awsExports);
 
@@ -19,23 +21,32 @@ const App: React.FC = () => {
         <Stack.Screen
           name="Splash"
           component={SplashScreen}
-          options={{ headerShown: false }} // Hide header for the splash screen
+          options={{ headerShown: false }} 
         />
-        {/* Add other screens here */}
         <Stack.Screen
           name="SignUp"
           component={SignUpScreen}
-          options={{ headerShown: false }} // Hide header for the splash screen
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen
+          name="ConfirmSignUp"
+          component={ConfirmSignUp}
+          options={{ headerShown: false }} 
         />
         <Stack.Screen
           name="Login"
-          component={LoginScreen} // Use the component for the Login screen
-          options={{ headerShown: false }} // Hide header for the Login screen
+          component={LoginScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen
+          name="SpotifyLogin"
+          component={SpotifyAuth} 
+          options={{ headerShown: false }} 
         />
         <Stack.Screen
           name="Welcome" 
-          component={WelcomeScreen} // Use the component for the Login screen
-          options={{ headerShown: false }} // Hide header for the Login screen
+          component={WelcomeScreen} 
+          options={{ headerShown: false }} 
         />
       </Stack.Navigator>
     </NavigationContainer>

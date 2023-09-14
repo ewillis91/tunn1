@@ -8,11 +8,10 @@ const SplashScreen: React.FC = () => {
   useEffect(() => {
     // Simulate a delay for the splash screen (e.g., 2 seconds)
     const splashTimeout = setTimeout(() => {
-      // Navigate to the home screen
-
+      // Navigate to the SignUp screen
       // @ts-ignore
       navigation.navigate('SignUp');
-      // For demonstration purposes, let's just log a message
+     
       console.log('Splash screen timeout complete');
     }, 2000);
 

@@ -9,7 +9,7 @@ type ConfirmSignUpParameters = {
   };
 
 const ConfirmSignUp: React.FC = () => {
-  const [code, setCode] = useState(''); // Added code state  const navigation = useNavigation();
+  const [code, setCode] = useState('');
   const navigation = useNavigation();
   const route = useRoute();
   const email = (route.params as { email: string })?.email;
@@ -27,12 +27,6 @@ const ConfirmSignUp: React.FC = () => {
       <Text style={styles.subtitle}>Confirmation code</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       <Text>Verify your email </Text>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setCode}
-        style={styles.input}
-      />
       <TextInput
         placeholder="Confirmation code"
         value={code}
