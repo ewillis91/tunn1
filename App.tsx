@@ -9,12 +9,17 @@ import LoginScreen from './components/LoginScreen';
 import WelcomeScreen from './components/WelcomeScreen';
 import SpotifyAuth from './components/SpotifyAuth';
 import ConfirmSignUp from './components/ConfirmSignUp';
+import { useFonts } from 'expo-font';
 
 Amplify.configure(awsExports);
 
 const Stack = createStackNavigator();
 
 const App: React.FC = () => {
+  const [fontsLoaded] = useFonts({
+    'Source Sans Pro': require('./assets/fonts/source-sans-pro.regular.ttf'),
+  });
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
