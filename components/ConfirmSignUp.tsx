@@ -18,7 +18,7 @@ const ConfirmSignUp: React.FC = () => {
       await Auth.confirmSignUp(email, code);
       console.log('Sign up successful');
       // @ts-ignore
-      navigation.navigate('SpotifyAuth');
+      navigation.navigate('WelcomeScreen');
     } catch (error) {
       console.log('Error signing up:', error);
     };
@@ -26,9 +26,9 @@ const ConfirmSignUp: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.subtitle}>Confirmation code</Text>
+      <Text style={styles.subtitle}>Verify your e-mail</Text>
+      <Text style={styles.text}>Check your email for a confirmation code </Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
-      <Text>Verify your email </Text>
       <TextInput
         placeholder="Confirmation code"
         value={code}

@@ -44,7 +44,7 @@ const LoginScreen: React.FC = () => {
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       <Text>Login</Text>
       {(!isEmailValid && email) && (
-        <Text style={styles.errorText}>Invalid email address</Text>
+        <Text style={styles.errorTextEmail}>Invalid email address</Text>
       )}
       <EmailValidation 
         email={email} 
@@ -52,7 +52,7 @@ const LoginScreen: React.FC = () => {
         setIsEmailValid={setIsValidEmail} 
       />
       {!isPasswordValid && (
-        <Text style={styles.errorText}>Password must be at least 8 characters long.</Text>
+        <Text style={styles.errorTextPassword}>Password must be at least 8 characters long.</Text>
       )}
       <PasswordValidation
         onPasswordChange={handlePasswordChange}
@@ -102,10 +102,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
   },
-  errorText: {
+  errorTextEmail: {
     color: 'red',
     fontSize: 12,
-    right: -10
+    right: -10,
+    top: 20
+  },
+   errorTextPassword: {
+    color: 'red',
+    fontSize: 12,
+    right: -10,
+    top: 30
   },
 });
 

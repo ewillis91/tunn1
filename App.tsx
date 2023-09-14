@@ -39,6 +39,11 @@ const App: React.FC = () => {
           options={{ headerShown: false }} 
         />
         <Stack.Screen
+          name="WelcomeScreen"
+          component={WelcomeScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen
           name="SpotifyLogin"
           component={SpotifyAuth} 
           options={{ headerShown: false }} 

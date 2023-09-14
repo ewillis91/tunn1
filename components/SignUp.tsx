@@ -60,7 +60,7 @@ const SignUpScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.subtitle}>Tune in</Text>
+      <Text style={styles.subtitle}>Sign Up & Tune in</Text>
       <Text style={styles.text}>Let's get you tuned in to great music around you. Create an account to get discovering and sharing.</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       {(!isEmailValid && email) && (
@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     right: -10,
     top: 20
-  }, errorTextPassword: {
+  },
+   errorTextPassword: {
     color: 'red',
     fontSize: 12,
     right: -10,

@@ -6,7 +6,7 @@ const WelcomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
-      <Text style={styles.text}>Welcome to Tunnl yee.</Text>
+      <Text style={styles.text}>Sign Up successful! Welcome to Tunnl yee.</Text>
     </View>
   );
 };
