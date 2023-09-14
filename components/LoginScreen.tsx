@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, Image, Alert} from 'react-native';
+import { View, Text, Button, StyleSheet, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from './EmailValidation';
@@ -23,7 +23,7 @@ const LoginScreen: React.FC = () => {
       navigation.navigate('SpotifyLogin');
     } catch (error: any) {
       console.log('error signing in', error);
-      if (error.code === 'NotAuthorizedException') {
+      if (error.code === 'NotAuthorizedException' || error.code === 'UserNotFoundException' ) {
         Alert.alert('Incorrect username or password.');
       } else {
         console.log(error);
