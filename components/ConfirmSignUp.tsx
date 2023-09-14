@@ -23,9 +23,10 @@ const ConfirmSignUp: React.FC = () => {
       console.log('Error signing up:', error);
       if (error.code === 'CodeMismatchException') {
         Alert.alert('Invalid verification code provided, please try again.');
-      } else {
+      } else if (!code) {
+        Alert.alert('Confirmation code cannot be empty')
         console.log(error);
-      }
+      } else console.log(error)
     }
 };
 
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
     left: 100
   },  
   subtitle: {
+    top: 0,
     fontSize: 20,
     fontWeight: '500',
     marginBottom: 20,

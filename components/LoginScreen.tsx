@@ -25,7 +25,8 @@ const LoginScreen: React.FC = () => {
       console.log('error signing in', error);
       if (error.code === 'NotAuthorizedException' || error.code === 'UserNotFoundException' ) {
         Alert.alert('Incorrect username or password.');
-      } else {
+      }  else if (!email || !password) {
+        Alert.alert('Validation Error', 'Please enter both email and password.')
         console.log(error);
       }
     }
