@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Button, StyleSheet, Image, Text, Alert, TouchableOpacity } from 'react-native';
 import { Auth } from 'aws-amplify';
-import EmailValidation from './EmailValidation';
-import PasswordValidation from './PasswordValidation';
+import EmailValidation from '../components/EmailValidation';
+import PasswordValidation from '../components/PasswordValidation';
 import { useNavigation } from '@react-navigation/native';
 
 const SignUpScreen: React.FC = () => {

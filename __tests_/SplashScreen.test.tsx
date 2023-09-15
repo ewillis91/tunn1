@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import SplashScreen from '../components/SplashScreen'; 
+import SplashScreen from '../screens/SplashScreen'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { expect } from '@jest/globals';
 

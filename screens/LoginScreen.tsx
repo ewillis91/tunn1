@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
-import EmailValidation from './EmailValidation';
-import PasswordValidation from './PasswordValidation';
+import EmailValidation from '../components/EmailValidation';
+import PasswordValidation from '../components/PasswordValidation';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');

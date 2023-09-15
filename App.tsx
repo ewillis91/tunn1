@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SplashScreen from './components/SplashScreen';
-import SignUpScreen from './components/SignUp';
+import SplashScreen from './screens/SplashScreen';
+import SignUpScreen from './screens/SignUpScreen';
 import { Amplify } from 'aws-amplify';
 import awsExports from './src/aws-exports';
-import LoginScreen from './components/LoginScreen';
-import WelcomeScreen from './components/WelcomeScreen';
+import LoginScreen from './screens/LoginScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import SpotifyAuth from './components/SpotifyAuth';
-import ConfirmSignUp from './components/ConfirmSignUp';
+import ConfirmSignUp from './screens/ConfirmSignUpScreen';
 import { useFonts } from 'expo-font';
 
 Amplify.configure(awsExports);

@@ -26,16 +26,30 @@ const discovery = {
         const { code } = response.params;
       }
     }, [response]);
-  
+
+    console.log(response?.type);
+
     return (
+     <View style={styles.container}>   
       <Button
         disabled={!request}
-        title="Login"
+        title="Spotify Login"
+        color="#f194ff"
         onPress={() => {
           promptAsync();
         }}
       />
-    );
-  }
+    </View>   
+    )};
+
+  const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        paddingBottom: 5,
+        backgroundColor: 'black'
+      }
+  });
 
   export default SpotifyAuth;
