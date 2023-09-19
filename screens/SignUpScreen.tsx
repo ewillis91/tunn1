@@ -81,7 +81,7 @@ const SignUpScreen: React.FC = () => {
       />
       <Button  
         title="Sign Up" 
-        color="#f194ff"
+        color="#FF00E8"
         onPress={handleSignUp} />
       <View style={styles.horizontalLine} />
       <TouchableOpacity onPress={handleLogin}>
@@ -129,13 +129,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Source Sans Pro',
   },
   errorTextEmail: {
-    color: 'red',
+    color: '#FF00E8',
     fontSize: 12,
     right: -10,
     top: 20
   },
    errorTextPassword: {
-    color: 'red',
+    color: '#FF00E8',
     fontSize: 12,
     right: -10,
     top: 30

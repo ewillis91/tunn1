@@ -27,7 +27,7 @@ const PasswordValidation: React.FC<PasswordValidationProps> = ({
         style={styles.input}
       />
       {!isValid && (
-        <Text style={{ color: 'red' }}>Password must be at least 8 characters long.</Text>
+        <Text>Password must be at least 8 characters long.</Text>
       )}
     </React.Fragment>
 )};

@@ -27,7 +27,7 @@ const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, 
         
       />
       {!setIsEmailValid && (
-        <Text style={{ color: 'red' }}>Please enter a valid email address</Text>
+        <Text>Please enter a valid email address</Text>
       )}
     </View>
   )};

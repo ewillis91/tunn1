@@ -66,7 +66,7 @@ const LoginScreen: React.FC = () => {
       <Button 
       title="Login" 
       onPress={handleSignIn} 
-      color="#f194ff"/>
+      color="#FF00E8"/>
     </View>
   );
 };

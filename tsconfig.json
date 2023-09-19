@@ -6,5 +6,9 @@
     "jsx": "react",
     "strict": true,
     "esModuleInterop": true
-  }
+  },
+    "include": [
+    "src/**/*.ts", // Your source files
+    "node_modules/@types" // Include @types in node_modules
+  ]
 }
