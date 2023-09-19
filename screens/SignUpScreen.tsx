@@ -62,7 +62,7 @@ const SignUpScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.subtitle}>Sign Up & Tune in</Text>
+      <Text style={styles.subtitle}>Sign up and tune in</Text>
       <Text style={styles.text}>Let's get you tuned in to great music around you. Create an account to get discovering and sharing.</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       {(!isEmailValid && email) && (
@@ -85,7 +85,7 @@ const SignUpScreen: React.FC = () => {
         onPress={handleSignUp} />
       <View style={styles.horizontalLine} />
       <TouchableOpacity onPress={handleLogin}>
-      <Text style={styles.text}>Already have an account? <Text style={styles.boldText}>Log in</Text></Text>
+      <Text style={styles.text}>Already have an account? <Text style={styles.signInText}>Sign in</Text></Text>
       </TouchableOpacity>
   </View>
   );
@@ -146,8 +146,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginVertical: 30,
   },
-  boldText: {
+  signInText: {
     fontWeight: 'bold',
+    textDecorationLine: 'underline',
   }});
 
 export default SignUpScreen;
