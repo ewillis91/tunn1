@@ -66,7 +66,7 @@ const SignUpScreen: React.FC = () => {
       <Text style={styles.text}>Let's get you tuned in to great music around you. Create an account to get discovering and sharing.</Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       {(!isEmailValid && email) && (
-        <Text style={styles.errorTextEmail}>Invalid email address</Text>
+        <Text style={styles.errorTextEmail}>Check what you entered, something doesn't look right</Text>
       )}
       <EmailValidation 
         email={email} 
@@ -74,7 +74,7 @@ const SignUpScreen: React.FC = () => {
         setIsEmailValid={setIsValidEmail} 
       />
       {!isPasswordValid && (
-        <Text style={styles.errorTextPassword}>Password must be at least 8 characters long.</Text>
+        <Text style={styles.errorTextPassword}>Pick again. Password must have at least 8 characters</Text>
       )}
       <PasswordValidation
         onPasswordChange={handlePasswordChange}

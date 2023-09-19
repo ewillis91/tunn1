@@ -27,7 +27,7 @@ const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, 
         
       />
       {!setIsEmailValid && (
-        <Text>Please enter a valid email address</Text>
+        <Text style={styles.errorTextEmail}>Please enter a valid email address</Text>
       )}
     </View>
   )};
@@ -41,6 +41,12 @@ const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, 
     borderWidth: 1,
     borderRadius: 5,
     color: 'white'
+  },
+  errorTextEmail: {
+    color: '#FF00E8',
+    fontSize: 12,
+    right: -10,
+    top: 20
   },
  })
 
