@@ -22,7 +22,7 @@ const ConfirmSignUp: React.FC = () => {
     } catch (error: any) {
       console.log('Error signing up:', error);
       if (error.code === 'CodeMismatchException') {
-        Alert.alert('Invalid verification code provided, please try again.');
+        Alert.alert('Hmm, that code doesn\'t look right. Check it and try again. (Or resend a new code)');
       } else if (!code) {
         Alert.alert('Confirmation code cannot be empty')
         console.log(error);
@@ -33,7 +33,7 @@ const ConfirmSignUp: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.subtitle}>Verify your e-mail</Text>
-      <Text style={styles.text}>Check your email for a confirmation code </Text>
+      <Text style={styles.text}>Almost there! Like all good gigs, we just need to check your details. Enter the code we just sent to your email. </Text>
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       <TextInput
         placeholder="Confirmation code"
@@ -44,9 +44,9 @@ const ConfirmSignUp: React.FC = () => {
         style={styles.input}
       />
       <Button 
-      title="Login" 
+      title="Submit Code" 
       onPress={confirmSignUp} 
-      color="#f194ff"/>
+      color="#FF00E8"/>
     </View>
   );
 };
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
+    top: -10,
   },
 });
 
