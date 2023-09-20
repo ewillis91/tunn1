@@ -6,6 +6,7 @@ const WelcomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/images/tunnl.png')} style={styles.logo} />
+      <Image source={require('../assets/images/rocknroll.png')} style={styles.logo} />
       <Text style={styles.text}>You\'re in! Welcome to tunnl, your new home for discovering new music.'.</Text>
     </View>
   );

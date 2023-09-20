@@ -24,9 +24,9 @@ const LoginScreen: React.FC = () => {
     } catch (error: any) {
       console.log('error signing in', error);
       if (error.code === 'NotAuthorizedException' || error.code === 'UserNotFoundException' ) {
-        Alert.alert('Incorrect username or password.');
+        Alert.alert('Hmm, that code doesn\'t look right. Check it and try again.');
       }  else if (!email || !password) {
-        Alert.alert('Validation Error', 'Please enter both email and password.')
+        Alert.alert('Please make sure an email address and password is added.')
         console.log(error);
       }
     }
@@ -111,13 +111,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Source Sans Pro',
   },
   errorTextEmail: {
-    color: 'red',
+    color: '#FF00E8',
     fontSize: 12,
     right: -10,
     top: 20
   },
    errorTextPassword: {
-    color: 'red',
+    color: '#FF00E8',
     fontSize: 12,
     right: -10,
     top: 30
