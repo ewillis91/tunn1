@@ -33,9 +33,9 @@ const SignUpScreen: React.FC = () => {
     navigation.navigate('ConfirmSignUp', { email });;
     } catch (error: any) {
       if (error.code === 'UsernameExistsException') {
-        Alert.alert('Email is already registered');
+        Alert.alert('There\'s already an account with this email address.');
       } else if (!email || !password) {
-        Alert.alert('Validation Error', 'Please enter both email and password.');
+        Alert.alert('Please make sure an email address and password is added.');
       } else {
         console.log(error);
       }
