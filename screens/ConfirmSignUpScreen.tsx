@@ -47,6 +47,8 @@ const ConfirmSignUp: React.FC = () => {
       title="Submit Code" 
       onPress={confirmSignUp} 
       color="#FF00E8"/>
+      <View style={styles.horizontalLine} />
+      <Text style={styles.resendcodeText}>Resend code </Text>
     </View>
   );
 };
@@ -90,6 +92,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Source Sans Pro',
     top: -10,
   },
-});
+  horizontalLine: {
+    height: 1,
+    width: '100%',
+    backgroundColor: 'white',
+    marginVertical: 30,
+  },
+  resendcodeText: {
+    fontSize: 14,
+    fontFamily: 'Source Sans Pro',
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+}});
 
 export default ConfirmSignUp;
