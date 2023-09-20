@@ -37,6 +37,7 @@ const ConfirmSignUp: React.FC = () => {
       <Image source={require('../assets/tunnl.png')} style={styles.logo} />
       <TextInput
         placeholder="Confirmation code"
+        placeholderTextColor={'gray'}
         value={code}
         onChangeText={setCode}
         secureTextEntry

@@ -53,6 +53,8 @@ const LoginScreen: React.FC = () => {
         <Text style={styles.errorTextEmail}>Invalid email address</Text>
       )}
       <EmailValidation 
+        placeholder='Email'
+        placeholderTextColor={'gray'}
         email={email} 
         onEmailChange={validateEmail} 
         setIsEmailValid={setIsValidEmail} 

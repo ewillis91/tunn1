@@ -71,6 +71,7 @@ const SignUpScreen: React.FC = () => {
       )}
       <EmailValidation 
         placeholder="Email"
+        placeholderTextColor='gray'
         email={email} 
         onEmailChange={validateEmail} 
         setIsEmailValid={setIsValidEmail} 

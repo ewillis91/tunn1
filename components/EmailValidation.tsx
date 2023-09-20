@@ -6,6 +6,7 @@ interface EmailValidationProps {
   onEmailChange: (email: string) => void;
   setIsEmailValid: (isValid: boolean) => void;
   placeholder: string;
+  placeholderTextColor: string;
 }
 
 const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, setIsEmailValid, placeholder
