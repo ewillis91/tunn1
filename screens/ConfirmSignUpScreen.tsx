@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, Alert, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 
@@ -13,7 +13,7 @@ const ConfirmSignUp: React.FC = () => {
   const route = useRoute();
   const { email }: RouteParams = (route.params || {}) as RouteParams; // Provide a default value and cast
   
-    const confirmSignUp = async () => {
+  const confirmSignUp = async () => {
     try {
       await Auth.confirmSignUp(email, code);
       console.log('Sign up successful');
@@ -27,6 +27,17 @@ const ConfirmSignUp: React.FC = () => {
         Alert.alert('Confirmation code cannot be empty')
         console.log(error);
       } else console.log(error)
+    }
+};
+
+  const resendConfirmationCode = async () => {
+    try {
+      await Auth.resendSignUp(email);
+      Alert.alert('Confirmation code resent successfully');
+      console.log(email)
+    } catch (error) {
+      console.error('Error resending confirmation code:', error);
+      Alert.alert('Error resending confirmation code', error.message || 'An error occurred');
     }
 };
 
@@ -48,7 +59,9 @@ const ConfirmSignUp: React.FC = () => {
       onPress={confirmSignUp} 
       color="#FF00E8"/>
       <View style={styles.horizontalLine} />
+      <TouchableOpacity onPress={resendConfirmationCode}>
       <Text style={styles.resendcodeText}>Resend code </Text>
+      </TouchableOpacity>
     </View>
   );
 };
