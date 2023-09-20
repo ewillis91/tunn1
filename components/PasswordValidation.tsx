@@ -21,6 +21,7 @@ const PasswordValidation: React.FC<PasswordValidationProps> = ({
     <React.Fragment>
       <TextInput
         placeholder="Password"
+        placeholderTextColor={'gray'}
         value={password}
         secureTextEntry
         onChangeText={validatePassword}

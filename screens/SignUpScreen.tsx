@@ -10,6 +10,8 @@ const SignUpScreen: React.FC = () => {
   const [isEmailValid, setIsValidEmail] = useState(true); 
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(true)
+  const [text, setText] = useState('');
+
   const navigation = useNavigation();
 
   const handleSignUp = async () => {
@@ -58,6 +60,10 @@ const SignUpScreen: React.FC = () => {
     navigation.navigate('Login');
   }
 
+  const handleTextChange = (newText: string) => {
+    setText(newText);
+  };
+
   console.log('Sign up:', email, password);
 
   return (
@@ -69,12 +75,13 @@ const SignUpScreen: React.FC = () => {
         <Text style={styles.errorTextEmail}>Check what you entered, something doesn't look right</Text>
       )}
       <EmailValidation 
+        placeholder="Email"
         email={email} 
         onEmailChange={validateEmail} 
         setIsEmailValid={setIsValidEmail} 
       />
       {!isPasswordValid && (
-        <Text style={styles.errorTextPassword}>Pick again. Password must have at least 8 characters</Text>
+        <Text style={styles.errorTextPassword}>Password must have at least 8 characters</Text>
       )}
       <PasswordValidation
         onPasswordChange={handlePasswordChange}

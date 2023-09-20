@@ -5,9 +5,10 @@ interface EmailValidationProps {
   email: string;
   onEmailChange: (email: string) => void;
   setIsEmailValid: (isValid: boolean) => void;
+  placeholder: string;
 }
 
-const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, setIsEmailValid
+const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, setIsEmailValid, placeholder
 }) => {
   const handleEmailChange = (text: string) => {
     onEmailChange(text);
@@ -20,11 +21,11 @@ const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, 
   return (
     <View>
       <TextInput
-        placeholder="Enter your email"
+        placeholder={placeholder}
+        placeholderTextColor={'gray'}
         onChangeText={handleEmailChange}
         value={email}
-        style={styles.input}
-        
+        style={styles.input}     
       />
       {!setIsEmailValid && (
         <Text style={styles.errorTextEmail}>Please enter a valid email address</Text>
@@ -40,7 +41,7 @@ const EmailValidation: React.FC<EmailValidationProps> = ({email, onEmailChange, 
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
-    color: 'white'
+    color: 'white',
   },
   errorTextEmail: {
     color: '#FF00E8',
