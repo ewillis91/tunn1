@@ -45,7 +45,7 @@ const ConfirmSignUp: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.subtitle}>Verify your e-mail</Text>
       <Text style={styles.text}>Almost there! Like all good gigs, we just need to check your details. Enter the code we just sent to your email. </Text>
-      <Image source={require('../assets/tunnl.png')} style={styles.logo} />
+      <Image source={require('../assets/images/tunnl.png')} style={styles.logo} />
       <TextInput
         placeholder="Confirmation code"
         placeholderTextColor={'gray'}

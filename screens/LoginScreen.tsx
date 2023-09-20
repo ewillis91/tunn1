@@ -20,7 +20,7 @@ const LoginScreen: React.FC = () => {
         });
       console.log('Sign in successful with ' + email);
       // @ts-ignore
-      navigation.navigate('SpotifyLogin');
+      navigation.navigate('Login');
     } catch (error: any) {
       console.log('error signing in', error);
       if (error.code === 'NotAuthorizedException' || error.code === 'UserNotFoundException' ) {
@@ -47,7 +47,7 @@ const LoginScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.subtitle}>Log in to get discovering and sharing</Text>
-      <Image source={require('../assets/tunnl.png')} style={styles.logo} />
+      <Image source={require('../assets/images/tunnl.png')} style={styles.logo} />
       <Text>Login</Text>
       {(!isEmailValid && email) && (
         <Text style={styles.errorTextEmail}>Invalid email address</Text>

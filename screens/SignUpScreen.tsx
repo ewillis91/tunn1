@@ -65,7 +65,7 @@ const SignUpScreen: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.subtitle}>Sign up and tune in</Text>
       <Text style={styles.text}>Let's get you tuned in to great music around you. Create an account to get discovering and sharing.</Text>
-      <Image source={require('../assets/tunnl.png')} style={styles.logo} />
+      <Image source={require('../assets/images/tunnl.png')} style={styles.logo} />
       {(!isEmailValid && email) && (
         <Text style={styles.errorTextEmail}>Check what you entered, something doesn't look right</Text>
       )}

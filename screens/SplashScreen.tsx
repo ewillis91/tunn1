@@ -22,7 +22,7 @@ const SplashScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/tunnl.png')} style={styles.logo} testID="splash-logo"/>
+      <Image source={require('../assets/images/tunnl.png')} style={styles.logo} testID="splash-logo"/>
     </View>
   );
 };
