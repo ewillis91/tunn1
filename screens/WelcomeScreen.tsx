@@ -6,8 +6,8 @@ const WelcomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/images/tunnl.png')} style={styles.logo} />
-      <Image source={require('../assets/images/rocknroll.png')} style={styles.logo} />
-      <Text style={styles.text}>You\'re in! Welcome to tunnl, your new home for discovering new music.'.</Text>
+      <Image source={require('../assets/images/rocknroll.png')} style={styles.rocknroll} />
+      <Text style={styles.text}>You're in! {'\n'} Welcome to tunnl, your new home for discovering new music.</Text>
     </View>
   );
 };
@@ -26,11 +26,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   text: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
-  }
+  },
+  rocknroll: {
+    top: -100,
+    width: 50,
+    height: 80,
+    justifyContent: 'center'
+  },
 });
 
 export default WelcomeScreen;
