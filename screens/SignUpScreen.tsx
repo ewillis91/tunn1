@@ -10,7 +10,6 @@ const SignUpScreen: React.FC = () => {
   const [isEmailValid, setIsValidEmail] = useState(true); 
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(true)
-  const [text, setText] = useState('');
 
   const navigation = useNavigation();
 
@@ -59,10 +58,6 @@ const SignUpScreen: React.FC = () => {
     // @ts-ignore
     navigation.navigate('Login');
   }
-
-  const handleTextChange = (newText: string) => {
-    setText(newText);
-  };
 
   console.log('Sign up:', email, password);
 
