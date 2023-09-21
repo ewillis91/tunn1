@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, Image, TextInput } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from '../components/EmailValidation';
 import ConfirmSignUp from './ConfirmSignUpScreen';
 
+type RouteParams = {
+  email: string;
+};
+
+
 const ResetPasswordScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsValidEmail] = useState(true); 
-  const [code, setCode ] = useState('');
+  const [code, setCode] = useState('');
 
   const navigation = useNavigation();
 
@@ -20,6 +25,17 @@ const ResetPasswordScreen: React.FC = () => {
     setIsValidEmail(isValid);
   };
 
+  const resendConfirmationCode = async () => {
+    try {
+      await Auth.resendSignUp(email);
+      Alert.alert('Confirmation code resent successfully');
+      console.log(email)
+    } catch (error) {
+      console.error('Error resending confirmation code:', error);
+      Alert.alert('Error resending confirmation code', error.message || 'An error occurred');
+    }
+};
+
   // Send confirmation code to user's email
   const forgotPassword = async (text:string) => {
     try {
@@ -29,20 +45,11 @@ const ResetPasswordScreen: React.FC = () => {
       console.log(err);
     }
   }
-
-//   // Collect confirmation code and new password
-//   const forgotPasswordSubmit = async () => {
-//     try {
-//       const data = await Auth.forgotPasswordSubmit(email, code, newPassword);
-//       console.log(data);
-//     } catch(err) {
-//       console.log(err);
-//     }
-//   };
   
   return (
     <View style={styles.container}>
       <Text style={styles.subtitle}>Reset Password</Text>
+      <Text style={styles.text}>Enter your email address associated with your account and we'll send you a confirmation code to reset your password.</Text>
       <Image source={require('../assets/images/tunnl.png')} style={styles.logo} />
       <Text>Login</Text>
       {(!isEmailValid && email) && (
@@ -55,8 +62,14 @@ const ResetPasswordScreen: React.FC = () => {
         onEmailChange={validateEmail} 
         setIsEmailValid={setIsValidEmail} 
       />
-     <ConfirmSignUp 
-     />
+      <Button 
+        title="Send Confirmation Code" 
+        onPress={resendConfirmationCode} 
+        color="#FF00E8"/>
+        <View style={styles.horizontalLine} />
+        <TouchableOpacity onPress={resendConfirmationCode}>
+        <Text style={styles.resendcodeText}>Resend code </Text>
+        </TouchableOpacity>
     </View>
   );
 };
@@ -122,7 +135,13 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
-  }
-});
+  },
+  resendcodeText: {
+    fontSize: 14,
+    fontFamily: 'Source Sans Pro',
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+}});
 
 export default ResetPasswordScreen;
