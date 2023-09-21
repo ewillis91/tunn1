@@ -10,6 +10,7 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import SpotifyAuth from './components/SpotifyAuth';
 import ConfirmSignUp from './screens/ConfirmSignUpScreen';
 import { useFonts } from 'expo-font';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
 
 Amplify.configure(awsExports);
 
@@ -51,6 +52,11 @@ const App: React.FC = () => {
         <Stack.Screen
           name="SpotifyLogin"
           component={SpotifyAuth} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen
+          name="ResetPasswordScreen"
+          component={ResetPasswordScreen} 
           options={{ headerShown: false }} 
         />
       </Stack.Navigator>

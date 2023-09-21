@@ -1,36 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, Image, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from '../components/EmailValidation';
-import PasswordValidation from '../components/PasswordValidation';
+import ConfirmSignUp from './ConfirmSignUpScreen';
 
-const LoginScreen: React.FC = () => {
+const ResetPasswordScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsValidEmail] = useState(true); 
-  const [password, setPassword] = useState('');
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [code, setCode ] = useState('');
+
   const navigation = useNavigation();
 
-  const handleSignIn = async () => {
-    try {
-      await Auth.signIn({
-        username: email,
-        password: password,
-        });
-      console.log('Sign in successful with ' + email);
-      // @ts-ignore
-      navigation.navigate('WelcomeScreen');
-    } catch (error: any) {
-      console.log('error signing in', error);
-      if (error.code === 'NotAuthorizedException' || error.code === 'UserNotFoundException' ) {
-        Alert.alert('Hmm, that password doesn\'t look right. Try again.');
-      }  else if (!email || !password) {
-        Alert.alert('Please make sure an email address and password is added.')
-        console.log(error);
-      }
-    }
-  }
 
   const validateEmail = (text: string) => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -39,19 +20,29 @@ const LoginScreen: React.FC = () => {
     setIsValidEmail(isValid);
   };
 
-  const handlePasswordChange = (password: string, isValid: boolean) => {
-    setPassword(password);
-    setIsPasswordValid(isValid);
-  };
-
-  const handleResetClick = () => {
-    // @ts-ignore
-    navigation.navigate('ResetPasswordScreen');
+  // Send confirmation code to user's email
+  const forgotPassword = async (text:string) => {
+    try {
+      await Auth.forgotPassword(email);
+      console.log('forgot password successful');
+    } catch(err) {
+      console.log(err);
+    }
   }
+
+//   // Collect confirmation code and new password
+//   const forgotPasswordSubmit = async () => {
+//     try {
+//       const data = await Auth.forgotPasswordSubmit(email, code, newPassword);
+//       console.log(data);
+//     } catch(err) {
+//       console.log(err);
+//     }
+//   };
   
   return (
     <View style={styles.container}>
-      <Text style={styles.subtitle}>Log in to get discovering and sharing</Text>
+      <Text style={styles.subtitle}>Reset Password</Text>
       <Image source={require('../assets/images/tunnl.png')} style={styles.logo} />
       <Text>Login</Text>
       {(!isEmailValid && email) && (
@@ -64,21 +55,8 @@ const LoginScreen: React.FC = () => {
         onEmailChange={validateEmail} 
         setIsEmailValid={setIsValidEmail} 
       />
-      {!isPasswordValid && (
-        <Text style={styles.errorTextPassword}>Password must be at least 8 characters long.</Text>
-      )}
-      <PasswordValidation
-        onPasswordChange={handlePasswordChange}
-      />
-      <Button 
-      title="Login" 
-      onPress={handleSignIn} 
-      color="#FF00E8"/>
-      <View style={styles.horizontalLine} />
-      <Text style={styles.text}>Forgot your password?</Text>
-      <TouchableOpacity onPress={handleResetClick}>
-      <Text style={styles.passwordResetText}>Reset</Text>
-      </TouchableOpacity>
+     <ConfirmSignUp 
+     />
     </View>
   );
 };
@@ -92,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black'
   },
   input: {
-    top: -50,
+    top: -20,
     marginBottom: 10,
     padding: 10,
     borderColor: 'gray',
@@ -147,4 +125,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default ResetPasswordScreen;
