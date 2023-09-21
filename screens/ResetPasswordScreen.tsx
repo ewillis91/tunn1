@@ -17,7 +17,6 @@ const ResetPasswordScreen: React.FC = () => {
 
   const navigation = useNavigation();
 
-
   const validateEmail = (text: string) => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const isValid = emailPattern.test(text);
@@ -25,26 +24,15 @@ const ResetPasswordScreen: React.FC = () => {
     setIsValidEmail(isValid);
   };
 
-  const resendConfirmationCode = async () => {
+// Send confirmation code to user's email
+  const forgotPassword = async () => {
     try {
-      await Auth.resendSignUp(email);
-      Alert.alert('Confirmation code resent successfully');
-      console.log(email)
-    } catch (error) {
-      console.error('Error resending confirmation code:', error);
-      Alert.alert('Error resending confirmation code', error.message || 'An error occurred');
-    }
-};
-
-  // Send confirmation code to user's email
-  const forgotPassword = async (text:string) => {
-    try {
-      await Auth.forgotPassword(email);
-      console.log('forgot password successful');
+      const data = await Auth.forgotPassword(email);
+      console.log(data);
     } catch(err) {
       console.log(err);
     }
-  }
+  };
   
   return (
     <View style={styles.container}>
@@ -64,10 +52,10 @@ const ResetPasswordScreen: React.FC = () => {
       />
       <Button 
         title="Send Confirmation Code" 
-        onPress={resendConfirmationCode} 
+        onPress={forgotPassword} 
         color="#FF00E8"/>
         <View style={styles.horizontalLine} />
-        <TouchableOpacity onPress={resendConfirmationCode}>
+        <TouchableOpacity onPress={forgotPassword}>
         <Text style={styles.resendcodeText}>Resend code </Text>
         </TouchableOpacity>
     </View>
