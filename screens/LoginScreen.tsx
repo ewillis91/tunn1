@@ -75,9 +75,8 @@ const LoginScreen: React.FC = () => {
       onPress={handleSignIn} 
       color="#FF00E8"/>
       <View style={styles.horizontalLine} />
-      <Text style={styles.text}>Forgot your password?</Text>
       <TouchableOpacity onPress={handleResetClick}>
-      <Text style={styles.passwordResetText}>Reset</Text>
+      <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
       </TouchableOpacity>
     </View>
   );
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginVertical: 30,
   },
-  passwordResetText: {
+  forgotPasswordText: {
     textDecorationLine: 'underline',
     fontSize: 14,
     color: 'white',
