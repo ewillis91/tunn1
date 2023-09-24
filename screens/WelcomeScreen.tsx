@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   },
   rocknroll: {
     top: -100,
-    width: 50,
-    height: 80,
+    width: 80,
+    height: 85,
     justifyContent: 'center'
   },
 });
