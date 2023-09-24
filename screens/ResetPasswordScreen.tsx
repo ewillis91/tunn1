@@ -3,7 +3,6 @@ import { View, Text, Button, StyleSheet, Image, TextInput, TouchableOpacity, Ale
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from '../components/EmailValidation';
-import ConfirmSignUp from './ConfirmSignUpScreen';
 
 type RouteParams = {
   email: string;

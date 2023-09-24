@@ -12,6 +12,7 @@ const CreateNewPasswordScreen: React.FC = () => {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigation = useNavigation();
   const route = useRoute();
   const { email }: RouteParams = (route.params || {}) as RouteParams; // Provide a default value and cast
 
@@ -23,7 +24,9 @@ const forgotPasswordSubmit = async () => {
       return;
     }
     await Auth.forgotPasswordSubmit(email, code, password);
-    console.log('Password updated successfully');
+    Alert.alert('Password updated successfully');
+    // @ts-ignore
+    navigation.navigate('LoginScreen');
   } catch (err) {
     console.log('Error updating password...', err);
   }};
