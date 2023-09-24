@@ -1,6 +1,6 @@
 
 import React, {useState} from "react";
-import { View, Button, StyleSheet, Image, TextInput } from 'react-native';
+import { View, Button, StyleSheet, Image, TextInput, Alert } from 'react-native';
 import { Auth } from 'aws-amplify';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -11,12 +11,17 @@ type RouteParams = {
 const CreateNewPasswordScreen: React.FC = () => {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const route = useRoute();
   const { email }: RouteParams = (route.params || {}) as RouteParams; // Provide a default value and cast
 
 
 const forgotPasswordSubmit = async () => {
   try {
+    if (password !== confirmPassword) {
+      Alert.alert('Passwords do not match.');
+      return;
+    }
     await Auth.forgotPasswordSubmit(email, code, password);
     console.log('Password updated successfully');
   } catch (err) {
@@ -37,6 +42,12 @@ const forgotPasswordSubmit = async () => {
           placeholderTextColor={'gray'}
           value={password}
           onChangeText={setPassword}
+          secureTextEntry/>
+        <TextInput  style={styles.input}
+          placeholder="Confirm new password"
+          placeholderTextColor={'gray'}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
           secureTextEntry/>
         <Button 
           title="Reset Password"
