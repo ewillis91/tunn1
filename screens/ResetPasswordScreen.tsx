@@ -30,7 +30,7 @@ const ResetPasswordScreen: React.FC = () => {
       const data = await Auth.forgotPassword(email);
       console.log(data);
       // @ts-ignore
-      navigation.navigate('CreateNewPasswordScreen');
+      navigation.navigate('CreateNewPasswordScreen', { email });;
     } catch(err) {
       console.log(err);
     }
