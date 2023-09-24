@@ -19,9 +19,6 @@ const forgotPasswordSubmit = async () => {
   try {
     await Auth.forgotPasswordSubmit(email, code, password);
     console.log('Password updated successfully');
-    console.log(email)
-    console.log(code)
-    console.log(password)
   } catch (err) {
     console.log('Error updating password...', err);
   }};
@@ -42,7 +39,7 @@ const forgotPasswordSubmit = async () => {
           onChangeText={setPassword}
           secureTextEntry/>
         <Button 
-          title="Submit"
+          title="Reset Password"
           onPress={forgotPasswordSubmit}
           color={'#FF00E8'}
         />  
