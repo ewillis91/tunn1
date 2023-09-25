@@ -1,6 +1,6 @@
 
 import React, {useState} from "react";
-import { View, Button, StyleSheet, Image, TextInput, Alert } from 'react-native';
+import { View, Button, StyleSheet, Image, TextInput, Alert, Touchable } from 'react-native';
 import { Auth } from 'aws-amplify';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -11,13 +11,15 @@ type RouteParams = {
 const CreateNewPasswordScreen: React.FC = () => {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigation = useNavigation();
+  const [showPassword, setShowPassword] = useState(false);
   const route = useRoute();
   const { email }: RouteParams = (route.params || {}) as RouteParams; // Provide a default value and cast
 
 
-const forgotPasswordSubmit = async () => {
+  const forgotPasswordSubmit = async () => {
   try {
     if (password !== confirmPassword) {
       Alert.alert('Passwords do not match.');
@@ -26,10 +28,15 @@ const forgotPasswordSubmit = async () => {
     await Auth.forgotPasswordSubmit(email, code, password);
     Alert.alert('Password updated successfully');
     // @ts-ignore
-    navigation.navigate('LoginScreen');
+    navigation.navigate('Login');
   } catch (err) {
     console.log('Error updating password...', err);
   }};
+
+  const handlePasswordChange = (password: string, isValid: boolean) => {
+    setPassword(password);
+    setIsPasswordValid(isValid);
+  };
 
   return (
     <View style={styles.container}>
@@ -39,7 +46,8 @@ const forgotPasswordSubmit = async () => {
           placeholderTextColor={'gray'}
           value={code}
           onChangeText={setCode}
-          secureTextEntry/>
+          keyboardType="numeric"
+          />
         <TextInput  style={styles.input}
           placeholder="New password"
           placeholderTextColor={'gray'}
