@@ -51,8 +51,8 @@ const ConfirmSignUp: React.FC = () => {
         placeholderTextColor={'gray'}
         value={code}
         onChangeText={setCode}
-        secureTextEntry
         style={styles.input}
+        keyboardType="numeric"
       />
       <Button 
       title="Submit Code" 
