@@ -34,6 +34,9 @@ const ResetPasswordScreen: React.FC = () => {
       console.log(err);
       if (err.code === 'UserNotFoundException') {
         Alert.alert('Have you signed up yet? If not, please sign up first.');
+      } else if (!email) {
+        Alert.alert('Please make sure an email address is added.')
+        console.log(err);
       }
     }
   };
