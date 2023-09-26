@@ -1,6 +1,6 @@
 
 import React, {useState} from "react";
-import { View, Button, StyleSheet, Image, TextInput, Alert, Touchable } from 'react-native';
+import { View, Button, StyleSheet, Image, TextInput, Alert, TouchableOpacity, Text } from 'react-native';
 import { Auth } from 'aws-amplify';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -14,10 +14,18 @@ const CreateNewPasswordScreen: React.FC = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigation = useNavigation();
-  const [showPassword, setShowPassword] = useState(false);
   const route = useRoute();
   const { email }: RouteParams = (route.params || {}) as RouteParams; // Provide a default value and cast
-
+  
+  const handleResendCode = async () => {
+    try {
+        await Auth.forgotPassword(email);
+        console.log('Confirmation code resent successfully');
+      } catch (error) {
+        console.error('Error resending confirmation code', error);
+      }
+    };
+  
 
   const forgotPasswordSubmit = async () => {
   try {
@@ -65,6 +73,10 @@ const CreateNewPasswordScreen: React.FC = () => {
           onPress={forgotPasswordSubmit}
           color={'#FF00E8'}
         />  
+        <View style={styles.horizontalLine} />
+        <TouchableOpacity onPress={handleResendCode}>
+        <Text style={styles.resendcodeText}>Resend code </Text>
+        </TouchableOpacity>
     </View>
   )
 };
@@ -117,6 +129,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
     right: -10,
     top: 30
+  },
+  resendcodeText: {
+    fontSize: 14,
+    fontFamily: 'Source Sans Pro',
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  horizontalLine: {
+    height: 1,
+    width: '100%',
+    backgroundColor: 'white',
+    marginVertical: 30,
   }});
 
 export default CreateNewPasswordScreen;

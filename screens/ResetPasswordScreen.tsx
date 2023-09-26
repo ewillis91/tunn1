@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from '../components/EmailValidation';
 
-type RouteParams = {
-  email: string;
-};
-
-
 const ResetPasswordScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsValidEmail] = useState(true); 
-  const [code, setCode] = useState('');
-
   const navigation = useNavigation();
 
   const validateEmail = (text: string) => {
@@ -24,7 +17,7 @@ const ResetPasswordScreen: React.FC = () => {
   };
 
 // Send confirmation code to user's email
-  const forgotPassword = async () => {
+   const forgotPassword = async () => {
     try {
       const data = await Auth.forgotPassword(email);
       console.log(data);
@@ -61,10 +54,6 @@ const ResetPasswordScreen: React.FC = () => {
         title="Send Confirmation Code" 
         onPress={forgotPassword} 
         color="#FF00E8"/>
-        <View style={styles.horizontalLine} />
-        <TouchableOpacity onPress={forgotPassword}>
-        <Text style={styles.resendcodeText}>Resend code </Text>
-        </TouchableOpacity>
     </View>
   );
 };
@@ -112,18 +101,6 @@ const styles = StyleSheet.create({
     right: -10,
     top: 20
   },
-   errorTextPassword: {
-    color: '#FF00E8',
-    fontSize: 12,
-    right: -10,
-    top: 30
-  },
-  horizontalLine: {
-    height: 1,
-    width: '100%',
-    backgroundColor: 'white',
-    marginVertical: 30,
-  },
   passwordResetText: {
     textDecorationLine: 'underline',
     fontSize: 14,
@@ -131,12 +108,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
   },
-  resendcodeText: {
-    fontSize: 14,
-    fontFamily: 'Source Sans Pro',
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: 'bold',
-}});
+});
 
 export default ResetPasswordScreen;
