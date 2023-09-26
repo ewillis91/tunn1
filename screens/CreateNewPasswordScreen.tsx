@@ -48,6 +48,7 @@ const CreateNewPasswordScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+        <Text style={styles.subtitle}>Create a new password</Text>
         <Image source={require('../assets/images/tunnl.png')} style={styles.logo} />
          <TextInput style={styles.input}
           placeholder="Confirmation code"
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   logo: {
-    top: -190,
+    top: -160,
     width: 126,
     height: 59,
     left: 100
