@@ -24,13 +24,42 @@ const discovery = {
     React.useEffect(() => {
       if (response?.type === 'success') {
         const { code } = response.params;
+      } else if (response?.type === 'error') {
+        console.log('Something went wrong');
       }
     }, [response]);
 
     console.log(response?.type);
 
+    const handleLogout = async () => {
+      // Revoke the Spotify access token by sending a POST request to the Spotify token endpoint
+      try {
+        await fetch('https://accounts.spotify.com/api/token/revoke', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `token=${response.accessToken}`,
+        });
+  
+        // Clear any stored authentication data (e.g., AsyncStorage or other storage mechanisms)
+        // Replace this with your actual implementation to clear the stored tokens and user data
+  
+        // Navigate the user to a different screen or perform any other post-logout actions
+        // For simplicity, we'll just reset the response state here.
+        promptAsync(); // This will trigger a new authentication request.
+      } catch (error) {
+        console.error('Error revoking token:', error);
+      }
+    };
+    
     return (
      <View style={styles.container}>   
+     {response?.type === 'success' ? (
+        <Button title="Log Out" onPress={handleLogout} color="#f194ff" />
+      ) : (
+        <Text style={styles.text}>You are not logged in</Text>
+      )}
       <Button
         disabled={!request}
         title="Spotify Login"
@@ -49,7 +78,13 @@ const discovery = {
         paddingHorizontal: 20,
         paddingBottom: 5,
         backgroundColor: 'black'
-      }
-  });
+      },
+      text: {
+        fontSize: 14,
+        color: 'white',
+        textAlign: 'center',
+        fontFamily: 'Source Sans Pro',
+        top: -10,
+      }});
 
   export default SpotifyAuth;

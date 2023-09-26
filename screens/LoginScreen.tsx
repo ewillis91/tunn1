@@ -20,7 +20,7 @@ const LoginScreen: React.FC = () => {
         });
       console.log('Sign in successful with ' + email);
       // @ts-ignore
-      navigation.navigate('WelcomeScreen');
+      navigation.navigate('SpotifyLogin');
     } catch (error: any) {
       console.log('error signing in', error);
       if (error.code === 'NotAuthorizedException' || error.code === 'UserNotFoundException' ) {

@@ -32,6 +32,9 @@ const ResetPasswordScreen: React.FC = () => {
       navigation.navigate('CreateNewPasswordScreen', { email });;
     } catch(err) {
       console.log(err);
+      if (err.code === 'UserNotFoundException') {
+        Alert.alert('Have you signed up yet? If not, please sign up first.');
+      }
     }
   };
   
