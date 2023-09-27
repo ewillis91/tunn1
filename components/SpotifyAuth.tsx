@@ -19,7 +19,7 @@ const SpotifyAuth = () => {
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: '152ccb8a6553402dab1cdf5098ff0793',
-      scopes: ['user-read-email', 'user-read-private'],
+      scopes: ['user-read-email', 'user-read-private', 'user-top-read'],
       responseType: 'code',
       redirectUri: 'exp://192.168.55.56:8081',
       usePKCE: false,
@@ -51,7 +51,7 @@ const SpotifyAuth = () => {
     setAccessToken(access_token);
     console.log('access_token', access_token);
     // @ts-ignore
-    navigation.navigate('WelcomeScreen');
+    navigation.navigate('WelcomeScreen', { accessToken: access_token });
   })
   .catch((error) => {
     if (error.response) {

@@ -28,9 +28,10 @@ const SignUpScreen: React.FC = () => {
       });
       
       console.log('Sign up successful');
-       // @ts-ignore
-     // Pass the email as a simple string without JSON.stringify
-    navigation.navigate('ConfirmSignUp', { email });;
+       
+      // @ts-ignore
+      // Pass the email as a simple string without JSON.stringify
+      navigation.navigate('ConfirmSignUp', { email });;
     } catch (error: any) {
       if (error.code === 'UsernameExistsException') {
         Alert.alert('There\'s already an account with this email address.');
