@@ -9,6 +9,11 @@ interface Track {
   id: string;
 }
 
+interface Playlist {
+  name: string;
+  artists: { name: string }[];
+  id: string;
+}
 type RouteParams = {
   accessToken: string;
 };
@@ -16,6 +21,7 @@ type RouteParams = {
 
 const WelcomeScreen: React.FC = () => {
   const [topTracks, setTopTracks] = useState<Track[]>([]);
+  const [userPlaylists, setUserPlaylists] = useState<Playlist[]>([]);
   const route = useRoute();
   const { accessToken }: RouteParams = (route.params || {}) as RouteParams; // Provide a default value and cast
 
@@ -27,13 +33,35 @@ const WelcomeScreen: React.FC = () => {
           Authorization: `Bearer ${accessToken}`,
         },
         params: {
-          limit: 10, // Number of top tracks to retrieve (adjust as needed)
+          limit: 8,
+          time_range: 'short_term',
         },
       })
       .then((response) => {
         const { items } = response.data;
         setTopTracks(items);
         console.log('topTracks', items.map((item: Track) => item.name));
+      })
+      .catch((error) => {
+        console.error('Error fetching top tracks:', error.response?.data);
+      });
+  }, [accessToken]);
+
+  useEffect(() => {
+    // Make a GET request to Spotify API to get the user's public playlists
+    axios
+      .get('https://api.spotify.com/v1/me/playlists', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          limit: 4,
+        },
+      })
+      .then((response) => {
+        const playlists = response.data.items;
+        setUserPlaylists(playlists);
+        console.log('User Playlists', playlists);
       })
       .catch((error) => {
         console.error('Error fetching top tracks:', error.response?.data);
@@ -47,7 +75,7 @@ const WelcomeScreen: React.FC = () => {
       <Text style={styles.text}>
         You're in! {'\n'} Welcome to tunnl, your new home for discovering new music.
       </Text>
-      <Text style={styles.heading}>Top Tracks</Text>
+      <Text style={styles.heading}>Top Tracks of the month</Text>
       <FlatList
         data={topTracks}
         keyExtractor={(item) => item.id} // Adjust this based on the actual structure of the data
@@ -58,6 +86,16 @@ const WelcomeScreen: React.FC = () => {
           </View>
         )}
       />
+      <Text style={styles.heading}>User Playlists</Text>
+      <FlatList
+        data={userPlaylists}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.playlistItem}>
+            <Text>{item.name}</Text>
+    </View>
+  )}
+/>
     </View>
   );
 };
@@ -70,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   logo: {
-    top: -190,
+    top: 20,
     width: 126,
     height: 59,
     justifyContent: 'center',
@@ -82,23 +120,33 @@ const styles = StyleSheet.create({
     fontFamily: 'Source Sans Pro',
   },
   rocknroll: {
-    top: -100,
-    width: 80,
-    height: 85,
+    top: 20,
+    width: 30,
+    height: 25,
     justifyContent: 'center',
   },
   heading: {
-    fontSize: 24,
+    top: 20,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 16,
     color: 'white',
   },
   trackItem: {
-    fontSize: 14,
+    top: 20,
+    width: 300,
+    height: 50,
     color: '#FFFFFF',
-    textAlign: 'center',
-    fontFamily: 'Source Sans Pro',
-    backgroundColor: '#282828',
+    backgroundColor: '#FFFFFF',
+  },
+  playlistItem: {
+  top: 20,
+  width: 300,
+  height: 50,
+  color: '#FFFFFF',
+  textAlign: 'center',
+  fontFamily: 'Source Sans Pro',
+  backgroundColor: '#FFFFFF',
   },
 });
 

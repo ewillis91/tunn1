@@ -19,7 +19,7 @@ const SpotifyAuth = () => {
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: '152ccb8a6553402dab1cdf5098ff0793',
-      scopes: ['user-read-email', 'user-read-private', 'user-top-read'],
+      scopes: ['user-read-email', 'user-read-private', 'user-top-read', 'playlist-read-private','playlist-read-collaborative'],
       responseType: 'code',
       redirectUri: 'exp://192.168.55.56:8081',
       usePKCE: false,
