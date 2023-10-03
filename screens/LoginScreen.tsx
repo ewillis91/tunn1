@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   logo: {
-    top: -190,
+    top: -150,
     width: 126,
     height: 59,
     left: 100
