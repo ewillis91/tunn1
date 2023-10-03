@@ -4,15 +4,28 @@ import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 import EmailValidation from '../components/EmailValidation';
 import PasswordValidation from '../components/PasswordValidation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Checkbox } from 'react-native-paper';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsValidEmail] = useState(true); 
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [checked, setChecked] = useState(false);
   const navigation = useNavigation();
 
   const handleSignIn = async () => {
+    if (checked) {
+      try {
+        // Store the username and password securely.
+        await AsyncStorage.setItem('email', email);
+        await AsyncStorage.setItem('password', password);
+      } catch (error) {
+        console.error('Error storing credentials:', error);
+      }
+    }
+
     try {
       await Auth.signIn({
         username: email,
@@ -30,7 +43,7 @@ const LoginScreen: React.FC = () => {
         console.log(error);
       }
     }
-  }
+  };
 
   const validateEmail = (text: string) => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -70,10 +83,19 @@ const LoginScreen: React.FC = () => {
       <PasswordValidation
         onPasswordChange={handlePasswordChange}
       />
+      <Text style={styles.rememberMeText}>Remember me</Text>
+      <Checkbox 
+        status={checked ? 'checked' : 'unchecked'}
+        onPress={() => {
+          setChecked(!checked);
+        }}
+        uncheckedColor='white'
+        color='#FF00E8'
+      />
       <Button 
-      title="Login" 
-      onPress={handleSignIn} 
-      color="#FF00E8"/>
+        title="Login" 
+        onPress={handleSignIn} 
+        color="#FF00E8"/>
       <View style={styles.horizontalLine} />
       <TouchableOpacity onPress={handleResetClick}>
       <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
@@ -143,6 +165,13 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Source Sans Pro',
+  },
+  rememberMeText: {
+    fontSize: 14,
+    color: 'white',
+    fontFamily: 'Source Sans Pro',
+    bottom: -25,
+    marginHorizontal: 40,
   }
 });
 

@@ -86,16 +86,6 @@ const WelcomeScreen: React.FC = () => {
           </View>
         )}
       />
-      <Text style={styles.heading}>User Playlists</Text>
-      <FlatList
-        data={userPlaylists}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.playlistItem}>
-            <Text>{item.name}</Text>
-    </View>
-  )}
-/>
     </View>
   );
 };

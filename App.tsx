@@ -20,6 +20,7 @@ const Stack = createStackNavigator();
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
     'Source Sans Pro': require('./assets/fonts/source-sans-pro.regular.ttf'),
+    'MaterialCommunityIcons': require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf'),
   });
 
   return (
