@@ -15,17 +15,27 @@ const LoginScreen: React.FC = () => {
   const [checked, setChecked] = useState(false);
   const navigation = useNavigation();
 
+  // Store email and password with a 24-hour expiration
+  const storeCredentials = async (email, password) => {
+    const expirationTimestamp = Date.now() + 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+    const data = {
+      email,
+      password,
+      expirationTimestamp,
+    };
+    await AsyncStorage.setItem('credentials', JSON.stringify(data));
+  };
+
+  // Log in and call storeCredentials if the user wants to be remembered
   const handleSignIn = async () => {
     if (checked) {
       try {
         // Store the username and password securely.
-        await AsyncStorage.setItem('email', email);
-        await AsyncStorage.setItem('password', password);
+        await storeCredentials(email, password);
       } catch (error) {
         console.error('Error storing credentials:', error);
       }
     }
-
     try {
       await Auth.signIn({
         username: email,

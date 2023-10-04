@@ -7,7 +7,11 @@ interface Track {
   name: string;
   artists: { name: string }[];
   id: string;
-}
+  album: {
+    images: {
+      url: string;
+    }[];
+  }};
 
 interface Playlist {
   name: string;
@@ -18,7 +22,6 @@ type RouteParams = {
   accessToken: string;
 };
 
-
 const WelcomeScreen: React.FC = () => {
   const [topTracks, setTopTracks] = useState<Track[]>([]);
   const [userPlaylists, setUserPlaylists] = useState<Playlist[]>([]);
@@ -28,13 +31,12 @@ const WelcomeScreen: React.FC = () => {
   useEffect(() => {
     // Make a GET request to Spotify API to get the user's top tracks
     axios
-      .get('https://api.spotify.com/v1/me/top/tracks', {
+      .get('https://api.spotify.com/v1/playlists/3wY8RPW4A2R7vBx6Dv9LUd/tracks', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
         params: {
-          limit: 8,
-          time_range: 'short_term',
+          limit: 4,
         },
       })
       .then((response) => {
@@ -50,7 +52,7 @@ const WelcomeScreen: React.FC = () => {
   useEffect(() => {
     // Make a GET request to Spotify API to get the user's public playlists
     axios
-      .get('https://api.spotify.com/v1/me/playlists', {
+      .get('https://api.spotify.com/v1/users/ggoulden/playlists', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -82,10 +84,20 @@ const WelcomeScreen: React.FC = () => {
         renderItem={({ item }) => (
           <View style={styles.trackItem}>
             <Text>{item.name}</Text>
-            <Text>{item.artists.map((artist) => artist.name).join(', ')}</Text>
+            <Text>{item.artists.map((name) => name).join(', ')}</Text>
           </View>
         )}
       />
+      <Text style={styles.heading}>User Playlists</Text>
+      <FlatList
+        data={userPlaylists}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.playlistItem}>
+            <Text>{item.name}</Text>
+    </View>
+  )}
+/>
     </View>
   );
 };
