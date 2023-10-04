@@ -7,11 +7,7 @@ interface Track {
   name: string;
   artists: { name: string }[];
   id: string;
-  album: {
-    images: {
-      url: string;
-    }[];
-  }};
+}
 
 interface Playlist {
   name: string;
@@ -29,7 +25,7 @@ const WelcomeScreen: React.FC = () => {
   const { accessToken }: RouteParams = (route.params || {}) as RouteParams; // Provide a default value and cast
 
   useEffect(() => {
-    // Make a GET request to Spotify API to get the user's top tracks
+    // Make a GET request to Spotify API to get the user's latest added tracks
     axios
       .get('https://api.spotify.com/v1/playlists/3wY8RPW4A2R7vBx6Dv9LUd/tracks', {
         headers: {
@@ -40,35 +36,14 @@ const WelcomeScreen: React.FC = () => {
         },
       })
       .then((response) => {
-        const { items } = response.data;
-        setTopTracks(items);
-        console.log('topTracks', items.map((item: Track) => item.name));
+        const topTracks = response.data.items.map((item: any) => ({ name: item.track.name }));
+        setTopTracks(topTracks);
       })
       .catch((error) => {
         console.error('Error fetching top tracks:', error.response?.data);
       });
   }, [accessToken]);
 
-  useEffect(() => {
-    // Make a GET request to Spotify API to get the user's public playlists
-    axios
-      .get('https://api.spotify.com/v1/users/ggoulden/playlists', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          limit: 4,
-        },
-      })
-      .then((response) => {
-        const playlists = response.data.items;
-        setUserPlaylists(playlists);
-        console.log('User Playlists', playlists);
-      })
-      .catch((error) => {
-        console.error('Error fetching top tracks:', error.response?.data);
-      });
-  }, [accessToken]);
 
   return (
     <View style={styles.container}>
@@ -77,27 +52,16 @@ const WelcomeScreen: React.FC = () => {
       <Text style={styles.text}>
         You're in! {'\n'} Welcome to tunnl, your new home for discovering new music.
       </Text>
-      <Text style={styles.heading}>Top Tracks of the month</Text>
+      <Text style={styles.heading}>Tracks of GG's playlist</Text>
       <FlatList
         data={topTracks}
         keyExtractor={(item) => item.id} // Adjust this based on the actual structure of the data
         renderItem={({ item }) => (
           <View style={styles.trackItem}>
             <Text>{item.name}</Text>
-            <Text>{item.artists.map((name) => name).join(', ')}</Text>
           </View>
         )}
       />
-      <Text style={styles.heading}>User Playlists</Text>
-      <FlatList
-        data={userPlaylists}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.playlistItem}>
-            <Text>{item.name}</Text>
-    </View>
-  )}
-/>
     </View>
   );
 };
