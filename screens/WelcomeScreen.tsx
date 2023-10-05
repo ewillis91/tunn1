@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
 import { useRoute } from '@react-navigation/native';
+import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
 interface Track {
   name: string;
   artists: { name: string }[];
   id: string;
+  added_at: string;
 }
 
 interface Playlist {
@@ -14,6 +16,7 @@ interface Playlist {
   artists: { name: string }[];
   id: string;
 }
+
 type RouteParams = {
   accessToken: string;
 };
@@ -22,12 +25,12 @@ const WelcomeScreen: React.FC = () => {
   const [topTracks, setTopTracks] = useState<Track[]>([]);
   const [userPlaylists, setUserPlaylists] = useState<Playlist[]>([]);
   const route = useRoute();
-  const { accessToken }: RouteParams = (route.params || {}) as RouteParams; // Provide a default value and cast
+  const { accessToken }: RouteParams = (route.params || {}) as RouteParams; // Get the access token from the route params
 
   useEffect(() => {
     // Make a GET request to Spotify API to get the user's latest added tracks
     axios
-      .get('https://api.spotify.com/v1/playlists/3wY8RPW4A2R7vBx6Dv9LUd/tracks', {
+      .get('https://api.spotify.com/v1/playlists/2n4Y7wnnTa2TqG3Tw3fNIl/tracks', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -36,11 +39,12 @@ const WelcomeScreen: React.FC = () => {
         },
       })
       .then((response) => {
-        const topTracks = response.data.items.map((item: any) => ({ name: item.track.name }));
+        const topTracks = response.data.items.map((item: any) => ({ name: item.track?.name, artists: item.track.artists, id: item.track.id, added_at: item.added_at }));
+        console.log('Top tracks:', topTracks);
         setTopTracks(topTracks);
       })
       .catch((error) => {
-        console.error('Error fetching top tracks:', error.response?.data);
+        console.error('Error fetching top tracks:', error);
       });
   }, [accessToken]);
 
@@ -52,13 +56,15 @@ const WelcomeScreen: React.FC = () => {
       <Text style={styles.text}>
         You're in! {'\n'} Welcome to tunnl, your new home for discovering new music.
       </Text>
-      <Text style={styles.heading}>Tracks of GG's playlist</Text>
+      <Text style={styles.heading}>GG's playlist tracks</Text>
       <FlatList
         data={topTracks}
-        keyExtractor={(item) => item.id} // Adjust this based on the actual structure of the data
+        keyExtractor={(item) => item.id} // Use the track ID as a key
         renderItem={({ item }) => (
           <View style={styles.trackItem}>
             <Text>{item.name}</Text>
+            <Text>{item.artists.map((artist) => artist.name).join(', ')}</Text>
+            <Text>{item.added_at}</Text>
           </View>
         )}
       />
@@ -101,7 +107,7 @@ const styles = StyleSheet.create({
   trackItem: {
     top: 20,
     width: 300,
-    height: 50,
+    height: 60,
     color: '#FFFFFF',
     backgroundColor: '#FFFFFF',
   },
